@@ -35,30 +35,31 @@ add_filter('give_donation_form_required_fields', 'give_dont_require_fields', 10,
 function give_no_more_four()
 { ?>
 <script>
-    // Listens for click events
-    document.addEventListener('click', function(event) {
+    // Looks in the Give wrapper for click events
+    var giveWrapper = document.querySelector('.give-form-wrap');
+    // Listens for click events in the form
+    if (giveWrapper != null) {
+        giveWrapper.addEventListener('click', function(event) {
 
-        // If click event matches plus icon in the Give form
-        if (event.target.matches('.give-tributes-clone-field .give-icon-plus')) {
-            // Grabs the number of active recipients
-            const recipients = document.querySelectorAll(".give_tributes_send_ecard_fields").length;
-            // If active reaches four the plus icon is removed
-            if (recipients >= 3) {
-                document.querySelectorAll(".give-tributes-clone-field .give-icon-plus").forEach(el => el.style.display = "none");
+            // If click event matches plus icon in the Give form
+            if (event.target.matches('.give-tributes-clone-field .give-icon-plus')) {
+                // Grabs the number of active recipients
+                const recipients = document.querySelectorAll(".give_tributes_send_ecard_fields").length;
+                // If active reaches four the plus icon is removed
+                if (recipients >= 3) {
+                    document.querySelectorAll(".give-tributes-clone-field .give-icon-plus").forEach(el => el.style.display = "none");
+                }
+            } else if (event.target.matches('.give-tributes-clone-field .give-icon-minus')) {
+
+                // Looks to see if the plus icon isn't there
+                const itsoff = document.querySelector(".give-tributes-clone-field .give-icon-plus").style.display
+                // Displays the plus icon only if it's not visible
+                if (itsoff == "none") {
+                    document.querySelectorAll(".give-tributes-clone-field .give-icon-plus").forEach(el => el.style.display = "block");
+                }
             }
-        }
-
-        // If click event matches minus icon in the Give form
-        if (event.target.matches('.give-tributes-clone-field .give-icon-minus')) {
-
-            // Looks to see if the plus icon isn't there
-            const itsoff = document.querySelector(".give-tributes-clone-field .give-icon-plus").style.display
-            // Displays the plus icon only if it's not visible
-            if (itsoff == "none") {
-                document.querySelectorAll(".give-tributes-clone-field .give-icon-plus").forEach(el => el.style.display = "block");
-            }
-        }
-    }, false);
+        }, false);
+    }
 </script>
 <?php }
 
