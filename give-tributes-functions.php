@@ -65,7 +65,7 @@ function give_no_more_four()
 
 add_action('give_post_form_output', 'give_no_more_four');
 
-// Changes the "Personal Info" text in forms
+// Changes the "Personal Info" text to "Donor Info" in forms
 function my_give_text_switcher($translations, $text, $domain)
 {
     if ($domain == 'give' && $text == 'Personal Info') {
@@ -74,3 +74,13 @@ function my_give_text_switcher($translations, $text, $domain)
     return $translations;
 }
 add_filter('gettext', 'my_give_text_switcher', 10, 3);
+
+// Changes the "Recipient First Name" text to "Recipient Name" in forms
+function my_second_give_text_switcher($translations, $text, $domain)
+{
+    if ($domain == 'give-tributes' && $text == 'Recipient First Name') {
+        $translations = __('Recipient Name', 'give-tributes');
+    }
+    return $translations;
+}
+add_filter('gettext', 'my_second_give_text_switcher', 10, 3);
